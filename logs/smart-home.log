@@ -1,0 +1,11 @@
+2025-04-15 00:01:20.688 - WARN This "id" is the table primary key by @TableId annotation in Class: "com.smart.task.domain.ScheduleTask",So @TableField annotation will not work!
+2025-04-15 00:01:20.848 - WARN This "taskId" is the table primary key by @TableId annotation in Class: "com.smart.core.domain.Lock",So @TableField annotation will not work!
+2025-04-15 00:01:25.461 - WARN Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2025-04-15 00:01:28.246 - WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-15 00:04:00.791 - WARN This "id" is the table primary key by @TableId annotation in Class: "com.smart.task.domain.ScheduleTask",So @TableField annotation will not work!
+2025-04-15 00:04:00.931 - WARN This "taskId" is the table primary key by @TableId annotation in Class: "com.smart.core.domain.Lock",So @TableField annotation will not work!
+2025-04-15 00:04:05.323 - WARN Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2025-04-15 00:04:07.942 - WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-15 01:13:25.842 - WARN HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=41m20s386ms319µs300ns).
+2025-04-15 22:33:03.444 - WARN HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=21h19m40s452ms584µs300ns).
+2025-04-15 22:38:32.518 - WARN HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m59s31ms228µs800ns).

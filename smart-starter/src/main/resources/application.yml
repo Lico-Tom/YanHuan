@@ -1,0 +1,51 @@
+server:
+  port: 9091
+  #ssl:
+  #  enabled: true
+  #  key-store: classpath:oauth2.jks
+  #  key-alias: oauth2
+  #  key-store-type: JKS
+  #  key-store-password: 123456
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+  flyway:
+    enabled: true
+    encoding: UTF-8
+    sql-migration-prefix: V
+    sql-migration-separator: __
+    sql-migration-suffixes: .sql
+    validate-on-migrate: true
+    baseline-on-migrate: true
+  profiles:
+    include: base-path
+    # 适配多个yml配置文件，多个配置文件以‘,’分割
+    active: dev
+logging:
+  config: classpath:log4j2.yml
+mybatis-plus:
+  global-config:
+    banner: false
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #暴露所有监控端点
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/*
+      - /swagger-resources
+      - /actuator/prometheus
