@@ -21,7 +21,6 @@ import java.util.Map;
  *
  * @author lizhonghao
  */
-@Configuration
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "sub";

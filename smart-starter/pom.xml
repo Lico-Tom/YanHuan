@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.smart</groupId>
-        <artifactId>smart-home</artifactId>
+        <artifactId>yanhuan</artifactId>
         <version>0.0.1-beta</version>
     </parent>
 
@@ -57,6 +57,12 @@
         <dependency>
             <groupId>com.smart</groupId>
             <artifactId>smart-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-auth</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

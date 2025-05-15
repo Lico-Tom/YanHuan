@@ -1,17 +1,17 @@
 package com.smart.security.config;
 
 import com.smart.security.component.*;
-import com.smart.security.service.DynamicSecurityService;
+import com.smart.security.component.DynamicSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authorization.AuthenticatedAuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -33,22 +33,19 @@ public class SmartSecurityConfig {
 
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-    private final DynamicSecurityService dynamicSecurityService;
+    private final DynamicAuthorizationManager dynamicAuthorizationManager;
 
-    private final DynamicSecurityFilter dynamicSecurityFilter;
 
     public SmartSecurityConfig(@Autowired IgnoreUrlsConfig ignoreUrlsConfig,
                                @Autowired RestfulAccessDeniedHandler restfulAccessDeniedHandler,
                                @Autowired RestAuthenticationEntryPoint restAuthenticationEntryPoint,
                                @Autowired JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter,
-                               @Autowired DynamicSecurityService dynamicSecurityService,
-                               @Autowired DynamicSecurityFilter dynamicSecurityFilter) {
+                               @Autowired(required = false) DynamicAuthorizationManager dynamicAuthorizationManager) {
         this.ignoreUrlsConfig = ignoreUrlsConfig;
         this.restfulAccessDeniedHandler = restfulAccessDeniedHandler;
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
         this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
-        this.dynamicSecurityService = dynamicSecurityService;
-        this.dynamicSecurityFilter = dynamicSecurityFilter;
+        this.dynamicAuthorizationManager = dynamicAuthorizationManager;
     }
 
     @Bean
@@ -57,8 +54,9 @@ public class SmartSecurityConfig {
                     ignoreUrlsConfig.getUrls().forEach(url -> authorizeHttpRequest.requestMatchers(url).permitAll());
                     authorizeHttpRequest.requestMatchers(HttpMethod.OPTIONS).permitAll();
                     authorizeHttpRequest.requestMatchers(HttpMethod.POST, "/v1/smart/user/login").permitAll();
-                    authorizeHttpRequest.anyRequest().authenticated();
-                   // authorizeHttpRequest.anyRequest().access(dynamicAuthorizationManager);
+                    authorizeHttpRequest
+                            .anyRequest()
+                            .access(dynamicAuthorizationManager == null ? AuthenticatedAuthorizationManager.authenticated() : dynamicAuthorizationManager);
                 })
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -66,9 +64,6 @@ public class SmartSecurityConfig {
                         .accessDeniedHandler(restfulAccessDeniedHandler)
                         .authenticationEntryPoint(restAuthenticationEntryPoint))
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-        if (dynamicSecurityService != null) {
-            register.addFilterBefore(dynamicSecurityFilter, AuthorizationFilter.class);
-        }
         return register.build();
     }
 

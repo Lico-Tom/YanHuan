@@ -9,9 +9,6 @@ import java.util.List;
 
 /**
  * SpringSecurity白名单资源路径配置
- *
- * @author macro
- * @date 2023/11/22
  */
 @Getter
 @Setter

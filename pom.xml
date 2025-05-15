@@ -24,6 +24,7 @@
         <module>smart-farm</module>
         <module>smart-mqtt</module>
         <module>test-configuration</module>
+        <module>smart-auth</module>
     </modules>
 
     <properties>

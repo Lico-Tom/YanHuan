@@ -17,7 +17,6 @@ import java.io.IOException;
  * @author lizhonghao
  * @date 2023/12/3
  */
-@Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request,
